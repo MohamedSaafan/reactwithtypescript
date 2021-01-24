@@ -7,7 +7,9 @@ const GuestList: React.FC = () => {
     setName("");
     setGuests([...guests, name]);
   };
-  console.log(name);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
   return (
     <div>
       <h2>Guest List</h2>
@@ -16,7 +18,7 @@ const GuestList: React.FC = () => {
           return <li key={index}>{name}</li>;
         })}
       </ul>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
+      <input value={name} onChange={onChange} />
       <br />
       <button onClick={handleAddGuest}>ADD Guest</button>
     </div>
