@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const GuestList: React.FC = () => {
   const [name, setName] = useState("");
   const [guests, setGuests] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const handleAddGuest = () => {
     setName("");
     setGuests([...guests, name]);
@@ -10,6 +11,11 @@ const GuestList: React.FC = () => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
   return (
     <div>
       <h2>Guest List</h2>
@@ -18,7 +24,7 @@ const GuestList: React.FC = () => {
           return <li key={index}>{name}</li>;
         })}
       </ul>
-      <input value={name} onChange={onChange} />
+      <input value={name} onChange={onChange} ref={inputRef} />
       <br />
       <button onClick={handleAddGuest}>ADD Guest</button>
     </div>
